@@ -12,8 +12,9 @@ services:
     volumes:
       - ./mariadb_1:/var/lib/mysql:Z
     networks:
-      - internal_network
-      - lab_net_db
+      internal_network:
+      lab_net_db:
+        ipv4_address: 192.168.20.130
 
   db_2:
     container_name: mariadb-fracmentacion-2
@@ -28,8 +29,9 @@ services:
     volumes:
       - ./mariadb_2:/var/lib/mysql:Z
     networks:
-      - internal_network
-      - lab_net_db
+      internal_network:
+      lab_net_db:
+        ipv4_address: 192.168.20.131
 
 networks:
   internal_network:
@@ -37,6 +39,8 @@ networks:
 
   lab_net_db:
     driver: macvlan
+    driver_opts:
+      parent: enp3s0f0
     ipam:
       config:
         - subnet: 192.168.20.0/24
