@@ -1,0 +1,42 @@
+services:
+  db_1:
+    name: mariadb-fracmentacion-1
+    image: mariadb:12
+    environment:
+      MARIADB_USER: user
+      MARIADB_PASSWORD: 123456
+      MARIADB_DATABASE: customers
+      MARIADB_ROOT_PASSWORD: 123456
+    port:
+      - 3306:3306
+    volumes:
+      - ./mariadb_1:/var/lib/mysql:Z
+
+  db_2:
+    name: mariadb-fracmentacion-1
+    image: mariadb:12
+    environment:
+      MARIADB_USER: user
+      MARIADB_PASSWORD: 123456
+      MARIADB_DATABASE: customers
+      MARIADB_ROOT_PASSWORD: 123456
+    port:
+      - 3307:3306
+    volumes:
+      - ./mariadb_2:/var/lib/mysql:Z
+
+networks:
+  internal_network:
+    driver: bridge
+
+  lab_net_db:
+    driver: macvlan
+    ipam:
+      config:
+        - subnet: 192.168.20.0/24
+          gateway: 192.168.20.1
+
+volumes:
+  mariadb_1:
+  mariadb_2:
+
